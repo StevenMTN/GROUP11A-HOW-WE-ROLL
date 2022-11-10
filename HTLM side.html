@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <title>Homepage IS-114</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <nav>
+          <u1> 
+            <li><a href="https://github.com/StevenMTN/GROUP11A-HOW-WE-ROLL">GitHub Repository</a></li>
+          </u1>
+        </nav> 
+ 
+        <center><canvas id="report"><canvas></center>
+
+                <script>
+        
+                    var canvas = document.getElementById('report');
+                    canvas.width  = 300;
+                    canvas.height = 200;
+                    var context = canvas.getContext('2d');
+                    
+                    fetch("https://bacit.info/hwr/20211016093445-9aed1b3a2b3c1eca5c3e1d8e9d5b9d9e.json", {cache: 'no-cache'})
+                    .then(response => response.json())
+                    .then(data => {
+                      context.font = '14px serif';
+                      context.fillStyle = "#000000";
+                      context.fillText('Day or Night', 30, 10);
+                      context.fillText('Motivation', 30, 54);
+                      context.fillText('Optimist or Pesimist', 30, 100);
+        
+                      // Viser hvilken fargekode hver medlemmer har -- Ex: Steven
+                      context.font = '14px serif';
+                      context.fillStyle = "#000000";
+                      context.fillText('Steven', 200, 30);
+                      var X = 250;
+                      var Y = 26;
+                      var R = 5;
+                      context.beginPath();
+                      context.arc(X, Y, R, 0, 2*Math.PI, false);
+                      context.fillStyle = "red";
+                      context.fill();
+                      context.lineWidth = 1;
+                      context.strokeStyle = "black";
+                      context.stroke();
+        
+                      // Day or Night -- Tegner linje
+                      context.beginPath();
+                      context.moveTo(40,30);
+                      context.lineTo(140,30);
+        
+                      // Motivation -- Tegner linje
+                      context.moveTo(40,70);
+                      context.lineTo(140,70);
+                      context.stroke();
+        
+                      // Optimist or Pesimist -- Tegner linjer
+                      context.moveTo(40,120);
+                      context.lineTo(140,120);
+                      context.stroke();
+        
+        
+                      // Day or Night -- Tegner fargekode
+                      var X = 40 + parseInt(data.dorn, 10);
+                      var Y = 30;
+                      var R = 5;
+                      context.beginPath();
+                      context.arc(X, Y, R, 0, 2*Math.PI, false);
+                      context.fillStyle = "red";
+                      context.fill();
+                      context.lineWidth = 1;
+                      context.strokeStyle = "black";
+                      context.stroke();
+        
+                      // Motivation -- Tegner fargekode
+                      var X = 40 + parseInt(data.mot, 10);
+                      var Y = 70;
+                      var R = 5;
+                      context.beginPath();
+                      context.arc(X, Y, R, 0, 2*Math.PI, false);
+                      context.fillStyle = "red";
+                      context.fill();
+                      context.lineWidth = 1;
+                      context.strokeStyle = "black";
+                      context.stroke();
+        
+                      // Optimist or Pesimist -- Tegner fargekode
+                      var X = 40 + parseInt(data.opes, 10);
+                      var Y = 120;
+                      var R = 5;
+                      context.beginPath();
+                      context.arc(X, Y, R, 0, 2*Math.PI, false);
+                      context.fillStyle = "red";
+                      context.fill();
+                      context.lineWidth = 1;
+                      context.strokeStyle = "black";
+                      context.stroke();
+                    });
+                </script>
+
+    </body>
+</html>
