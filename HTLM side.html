@@ -22,7 +22,7 @@
                     canvas.height = 200;
                     var context = canvas.getContext('2d');
                     
-                    fetch("https://bacit.info/hwr/20211016093445-9aed1b3a2b3c1eca5c3e1d8e9d5b9d9e.json", {cache: 'no-cache'})
+                    fetch("link", {cache: 'no-cache'})
                     .then(response => response.json())
                     .then(data => {
                       context.font = '14px serif';
@@ -63,7 +63,7 @@
         
         
                       // Day or Night -- Tegner fargekode
-                      var X = 40 + parseInt(data.dorn, 10);
+                      var X = 40 + parseInt(data, 10);
                       var Y = 30;
                       var R = 5;
                       context.beginPath();
@@ -75,7 +75,7 @@
                       context.stroke();
         
                       // Motivation -- Tegner fargekode
-                      var X = 40 + parseInt(data.mot, 10);
+                      var X = 40 + parseInt(data, 10);
                       var Y = 70;
                       var R = 5;
                       context.beginPath();
@@ -87,7 +87,7 @@
                       context.stroke();
         
                       // Optimist or Pesimist -- Tegner fargekode
-                      var X = 40 + parseInt(data.opes, 10);
+                      var X = 40 + parseInt(data, 10);
                       var Y = 120;
                       var R = 5;
                       context.beginPath();
