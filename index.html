@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>How We Roll</title>
+    <link rel = "stylesheet" href = "stylesheet.css">
+</head>
+<body>
+<div id = "mainDiv">  
+<div class = "navbar">
+        <ul id = "listeNavbar"> <!--Liste for lenker i hovedmeny-->
+
+            <li id = "liSkjema" class = "liElement">
+                <a>Hjem</a> <!--Ingen lenke til siden man allerede er på-->
+            </li>
+
+            <li id = "liHWR" class = "liElement">
+                <a href = "canvas.html">Rapport</a> <!--Lenke til side for grafisk fremstilling av nedhentet data-->
+            </li>
+
+            <li id = "liGithub" class = "liElement">
+                <a href = "https://github.com/StevenMTN/GROUP11A-HOW-WE-ROLL" target = "_blank">Github Repository</a> <!--Lenke til Github repository-->
+            </li>
+
+        </ul>
+</div>
+<div id = "formdiv">
+   <form>
+    <table class = "center">
+
+        <tbody>
+            <tr>
+                <td></td>
+                <td> 
+                    <!--Felter for input av navn og mail-->
+                    <input type = "text" name = "navn" id = "navn" class = "inputTekst" maxlength = "50" size = "30" placeholder = "Navn">
+                    <input id = "mail" class = "inputTekst" name ="mail" size = "50" type = "text" placeholder = "Mail">
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <!-- gors group eller selv -->
+                <td class = "leftLabel">
+                     <label for = "gors">Jobbe i gruppe</label>
+                </td>
+
+                <td class = "textCenter"> 
+                    <input type = "range" id= "gors" class= "slider" name= "gors" value= "50">
+                </td>
+
+                <td class = "rightLabel">
+                    <label for = "gors">Jobbe alene</label>
+                </td>
+            </tr>
+
+            <tr>
+                <!-- forj - Face to Face eller Jobbe digitalt -->
+                <td class = "leftLabel"> 
+
+                    <label for = "forj">Jobbe face to face</label>
+                </td>
+
+                <td class = "textCenter">
+                     <input type = "range" id = "forj" class = "slider" name = "forj" value = "50">
+                </td>
+
+                <td class = "rightLabel">
+                    <label for = "forj">Jobbe digitalt</label>
+                </td>
+            </tr>
+
+            <tr>
+                <!-- aorf - Følge Arbeidsplan eller Freestyle -->
+                <td class = "leftLabel">
+                    <label for = "aorf">Følge arbeidsplan</label>
+                </td>
+                
+                <td class = "textCenter"> 
+                    <input type = "range" id = "aorf" class = "slider" name = "aorf" value = "50">
+                </td>
+
+                <td class="rightLabel">
+                    <label for = "aorf">Freestyle</label>
+                </td>
+            </tr>
+
+            <tr>
+                <!--sorv - spesifikk tid for spørsmål eller spør meg når du vil-->
+                <td class = "leftLabel">
+                    <label for = "sorv">Spesifikk tid for spørsmål</label>
+                </td>
+
+                <td class = "textCenter">
+                    <input type = "range" id = "sorv" class = "slider" name = "sorv" value = "50">
+                </td>
+
+                <td class = "rightLabel">
+                    <label for = "sorv">Spør meg når som helst</label>
+                </td>
+            </tr>
+
+            <tr>
+                <!--foru - alt ferdig før du fortsetter eller gå videre mens ting er git uferdig-->
+                <td class = "leftLabel">
+                    <label for = "foru">100% ferdig før man fortsetter</label>
+                </td>
+
+                <td class = "textCenter">
+                    <input type = "range" id = "foru" class = "slider" name = "foru" value = "50">
+                </td>
+
+                <td class = "rightLabel">
+                    <label for = "foru">Gå videre før ting er ferdig</label>
+                </td>
+            </tr>
+        </div>
+            <tr>
+                <td   colspan = "3"class = "textCenter">
+                    <button  id = "submitKnapp" type = "submit">Lagre</button>
+                </td>
+            </tr>
+        </form>
+        </tbody>
+    </table>
+</form>
+</div>
+</div>
+</body>
+</html>
