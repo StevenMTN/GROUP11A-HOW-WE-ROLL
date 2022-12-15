@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <title>Homepage IS-114</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel = "stylesheet" href = "stylesheet.css">
+</head>
+<body>
+
+<div class = "navbar">
+    <ul id = "listeNavbar">
+        <li id = "liSkjema" class = "liElement">
+            <a href = "index.html">Hjem</a>
+        </li>
+        <li id = "liHWR" class = "liElement">
+            <a>Rapport</a>
+        </li>
+        <li id = "liGithub" class = "liElement">
+            <a href = "https://github.com/StevenMTN/GROUP11A-HOW-WE-ROLL" target = "_blank">Github Repository</a>
+        </li>
+    </ul>
+</div>
+     
+<p style="text-align: center">
+    <canvas id="rapport"> </canvas>
+</p>
+<p style="text-align: center">
+    <canvas id="navnCanvas" height="300" width="200"> </canvas>
+</p>
+  
+
+<script>
+        
+                    
+let arrUrls = [
+    "https://bacit.info/hwr/20221208100059-3849d394bebf1e93049cce9ca1996a0f.json", //data for Tobias
+    "https://bacit.info/hwr/20221215115709-135478c99b8bf86f835fe9b1dbb78651.json", //data for Felix
+    "https://bacit.info/hwr/20221215115903-e744e41cb3d16e5678f3812edcd3d021.json", //data for Shek
+    "https://bacit.info/hwr/20221215120021-eb0340064467ec78ab94167e8f14f979.json", //data Arman
+    "https://bacit.info/hwr/20221215120235-5faf44df586512a88a962014f3c5e0f1.json" //data for Steven
+]
+
+let arrSporsmal = [
+    ["gors", "Jobbe i gruppe", "Jobbe alene"],
+    ["forj", "Jobbe face to face", "Jobbe digitalt"],
+    ["aorf", "Følge arbeidsplan", "Freestyle"],
+    ["sorv", "Spesfikk tid for spørsmål", "Spør meg når som helst"],
+    ["foru", "100% ferdig før man fortsetter", "Gå videre før ting er ferdig"]
+]
+
+let arrData = [];
+
+let navnCanvas = document.getElementById("navnCanvas");
+let a = navnCanvas.getContext("2d");
+let lStart = 300;
+let lSlutt = 500;
+let multi = (lSlutt - lStart)/100;
+let radius = 7;
+    
+
+Promise.all( //w3schools.com/js/js_promise.asp
+    arrUrls.map( //https://www.w3schools.com/jsref/jsref_map.asp, mapper URLene i arr
+        (url) =>
+            fetch(url)
+                .then((res) => res.json())
+                .then((res) => arrData.push(res)) //pusher dataene til arrData
+    )
+)
+    .then(() => {
+        console.log(arrData); //logger objekter fra arrData i console
+        tegnCanvas();         
+    })
+
+    
+function tegnCanvas() { //fremstiller dataene grafisk i Canvas
+    
+    let canvas = document.getElementById("rapport");
+    canvas.width  = 800;
+    canvas.height = 300;
+    let context = canvas.getContext('2d');
+
+    for (let i = 0; i < arrSporsmal.length; i++) { //for loop for å gjenta innholdet for antall spørsmål
+        let yPos = 40 * i + 10; //verdi for posisjon, øker for hver gang for-loopen gjentas
+        let cc = 0;   //tellevariabel for fargeendring, "cc" for "color change"
+        let spm = arrSporsmal[i][0]; 
+        
+        tegnLinje(i, yPos, context);
+
+        arrData.forEach(function (arrayItem) {
+            let xPos = arrayItem[spm];
+            let farge = velgFarge(cc);
+
+            tegnPrikk(xPos, yPos, farge, context);
+
+            if (i == 0) {
+                let navn = arrayItem.navn
+                tegnNavn(farge, navn, cc);
+            }
+            console.log(spm);
+            cc++;
+
+        });
+    }
+}
+
+function tegnLinje(i, y, context) { //fremstiller linjer
+    context.beginPath();
+    context.moveTo(lStart, y);
+    context.lineTo(lSlutt, y);
+    context.lineWidth = 5;
+    context.strokeStyle = "white";
+    context.font = "20px Arial";
+    context.fillStyle = "white";
+    context.textAlign = "end";
+    context.fillText(arrSporsmal[i][1], lStart - 15, y + 3); //
+    context.textAlign = "start";
+    context.fillText(arrSporsmal[i][2], lSlutt + 15, y + 3);
+    context.closePath();
+    context.fill();
+    context.stroke();
+}
+
+function tegnNavn(farge, navn, cc) {
+    let x = 10;
+    let y = cc * 30 + 10;
+    a.fillStyle = farge;
+    a.lineWidth = 1;
+    a.strokeStyle = "black";
+    a.beginPath();
+    a.arc(x, y, radius, 0, 2 * Math.PI);
+    a.closePath();
+    a.fill();
+    a.stroke();
+    a.beginPath();
+    a.strokeStyle = "white";
+    a.font = "20px Arial";
+    a.fillStyle = "white";
+    a.textAlign = "start";
+    a.fillText(navn, x + radius * 2, y + 4);
+    a.stroke();
+}
+
+function tegnPrikk(xPos, yPos, farge, context) { //fremstiller prikk
+    let x = lStart + xPos * multi;
+    let y = yPos;
+    context.fillStyle = farge;
+    context.lineWidth = 1;
+    context.strokeStyle = "black";
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2 * Math.PI); //https://www.w3schools.com/tags/canvas_arc.asp, lager sirkel
+
+    context.closePath();
+    context.fill();
+    context.stroke();
+}
+
+function velgFarge(fargeNum) { //https://stackoverflow.com/questions/10014271/generate-random-color-distinguishable-to-humans, endrer farger på prikker med så stor ulikhet mellom fargene at vi kan se det tydelig
+    return "hsl(" + (fargeNum * (360 / arrData.length) % 360) + ", 100%,50%)";
+}
+
+</script>
+</body>
+</html>
